@@ -37,6 +37,8 @@ export default class HomeScreen extends React.Component {
 
             <Text style={styles.getStartedText}>Get started by opening</Text>
 
+            <Text>Hello World!</Text>
+
             <View style={[styles.codeHighlightContainer, styles.homeScreenFilename]}>
               <MonoText style={styles.codeHighlightText}>screens/HomeScreen.js</MonoText>
             </View>
