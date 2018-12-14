@@ -14,15 +14,11 @@ const HomeStack = createStackNavigator({
 });
 
 HomeStack.navigationOptions = {
-  tabBarLabel: 'Home',
+  tabBarLabel: 'Form',
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
       focused={focused}
-      name={
-        Platform.OS === 'ios'
-          ? `ios-information-circle${focused ? '' : '-outline'}`
-          : 'md-information-circle'
-      }
+      name={'form'}
     />
   ),
 };
@@ -32,11 +28,11 @@ const ListingStack = createStackNavigator({
 });
 
 ListingStack.navigationOptions = {
-  tabBarLabel: 'Listing',
+  tabBarLabel: 'Status',
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
       focused={focused}
-      name={Platform.OS === 'ios' ? 'ios-link' : 'md-link'}
+      name={'eye'}
     />
   ),
 };
