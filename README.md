@@ -2,7 +2,7 @@
 
 This is a school project for the User Interface Constrution master's level course at Aalto University
 
-# How to start contributing
+# How to run project on your device
 
 [Install Node](https://nodejs.org/en/download/)
 

@@ -6,6 +6,8 @@ import TabBarIcon from '../components/TabBarIcon';
 import HomeScreen from '../screens/HomeScreen';
 import LinksScreen from '../screens/LinksScreen';
 import SettingsScreen from '../screens/SettingsScreen';
+import ListingScreen from '../screens/ListingScreen';
+
 
 const HomeStack = createStackNavigator({
   Home: HomeScreen,
@@ -25,12 +27,12 @@ HomeStack.navigationOptions = {
   ),
 };
 
-const LinksStack = createStackNavigator({
-  Links: LinksScreen,
+const ListingStack = createStackNavigator({
+  Listing: ListingScreen,
 });
 
-LinksStack.navigationOptions = {
-  tabBarLabel: 'Links',
+ListingStack.navigationOptions = {
+  tabBarLabel: 'Listing',
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
       focused={focused}
@@ -55,6 +57,5 @@ SettingsStack.navigationOptions = {
 
 export default createBottomTabNavigator({
   HomeStack,
-  LinksStack,
-  SettingsStack,
+  ListingStack,
 });

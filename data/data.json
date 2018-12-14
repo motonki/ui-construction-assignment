@@ -1,0 +1,16 @@
+{
+    "announcements" : [
+        {
+            "id": 123,
+            "name": "Foo bar",
+            "date": "12.12.2018",
+            "type": "birth"
+        },
+        {
+            "id": 124,
+            "name": "Lorem ipsum",
+            "date": "2.10.2016",
+            "type": "death"
+        }
+    ]
+}
