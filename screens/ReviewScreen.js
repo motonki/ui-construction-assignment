@@ -74,6 +74,10 @@ export default class ReviewScreen extends React.Component {
 
       // Set new list to local storage. Array of objects needs to be stringified
       await AsyncStorage.setItem("@RECORDS", JSON.stringify(storedData))
+      this.props.navigation.navigate('Listing')
+      alert("Form is successfully sent to the government!! Check the status page to see if the report has been accepted. This process will take a week. You will also be notified on a document sent to you by post to your address");
+      
+
    } catch (error) {
      // Error retrieving data
    }
