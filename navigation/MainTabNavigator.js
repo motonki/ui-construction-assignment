@@ -7,11 +7,15 @@ import HomeScreen from '../screens/HomeScreen';
 import LinksScreen from '../screens/LinksScreen';
 import SettingsScreen from '../screens/SettingsScreen';
 import ListingScreen from '../screens/ListingScreen';
+import ReviewScreen from '../screens/ReviewScreen';
 
 
 const HomeStack = createStackNavigator({
   Home: HomeScreen,
+  Review: ReviewScreen
 });
+
+ 
 
 HomeStack.navigationOptions = {
   tabBarLabel: 'Form',

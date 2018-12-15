@@ -6,6 +6,7 @@ import {
   StyleSheet,
   Text,
   TouchableOpacity,
+  DatePickerAndroid,
   View,
   TextInput,
   KeyboardAvoidingView
@@ -22,7 +23,9 @@ export default class HomeScreen extends React.Component {
     title: 'Birth or Death Report Form',
   };
 
-  state = {}
+  state = {
+    emptyFields: []
+  }
 
   onChangeText = (text, validationRegex, id) => {
     if (!text.match(validationRegex)) return
@@ -31,17 +34,41 @@ export default class HomeScreen extends React.Component {
   }
 
   onCheckBoxPress = (value) => {
-    if (value == 'death') this.setState({ birth: false, death: true })
-    else this.setState({ death: false, birth: true })
+    this.setState({ birthOrDeath: value })
   }
 
+
+
+  readyButtonClick = () => {
+     const ret = this.validateForm()      
+     if(ret)  this.props.navigation.navigate('Review', this.state)
+  }
+
+
+
   validateForm = () => {
-    const keys = ["fullName", "mobileNumber", "patientName", "incidentTime", "hospitalName", "patientSSN"]
+    const keys = ["fullName", "mobileNumber", "patientName", "birthOrDeath", "incidentTime", "hospitalName", "patientSSN"] 
+    const emptyFields = []
+
+    if (this.state.hospitalName === "none") emptyFields.push("hospitalName")
+    
+    keys.forEach((key) => {
+      if(!this.state[key]) emptyFields.push(key)
+    })
+
+    this.setState({ emptyFields })
+
+    if (emptyFields.length > 0) {
+      alert(`You did not fill in all the following fields! Please fill in fields in red`)
+      return false;
+    }
+ 
+    return true; 
   }
 
   render() {
-    const { birth, death, patientName } = this.state;
-    const incident = birth ? "birth" : death ? "death" : "incident"; 
+    const { birthOrDeath, patientName, emptyFields } = this.state;
+    const incident = birthOrDeath || "incident"
     const concernedPerson = patientName || "the concerned person";
 
     console.log('HomeScreen state: ', this.state)
@@ -57,8 +84,9 @@ export default class HomeScreen extends React.Component {
           renderInput={() => (
             <FormInput
               placeholder={'Eg. Maimuna Syed'}
-              value={this.state['fullName']} // this should match
-              onChangeText={(text) => this.onChangeText(text, /^[a-zA-Z ]+$/, 'fullName')} // this
+              value={this.state.fullName || ""} // this should match
+              onChangeText={(text) => this.onChangeText(text, /(^$)|^[a-zA-Z ]+$/, 'fullName')} // this
+              error={emptyFields.includes('fullName')}
             />
           )}
         />
@@ -68,8 +96,9 @@ export default class HomeScreen extends React.Component {
           renderInput={() => (
             <FormInput
               placeholder={'Eg. 050412453'}
-              value={this.state['mobileNumber']} // This should match
-              onChangeText={(text) => this.onChangeText(text, /^[1234567890+]+$/, 'mobileNumber')} // this
+              value={this.state.mobileNumber || ""} // This should match
+              onChangeText={(text) => this.onChangeText(text, /(^$)|^[1234567890+]+$/, 'mobileNumber')} // this
+              error={emptyFields.includes('mobileNumber')}
             />
           )}
         />
@@ -82,14 +111,14 @@ export default class HomeScreen extends React.Component {
                 title="Death"
                 checkedIcon='dot-circle-o'
                 uncheckedIcon='circle-o'
-                checked={this.state['death']}
+                checked={this.state.birthOrDeath === 'death'}
                 onPress={() => this.onCheckBoxPress('death')}
               />
               <CheckBox
                 title="Birth"
                 checkedIcon='dot-circle-o'
                 uncheckedIcon='circle-o'
-                checked={this.state['birth']}
+                checked={this.state.birthOrDeath === 'birth'}
                 onPress={() => this.onCheckBoxPress('birth')}
               /> 
 
@@ -102,8 +131,9 @@ export default class HomeScreen extends React.Component {
           renderInput={() => (
             <FormInput
               placeholder={'Eg. Maria Syed'}
-              value={this.state['patientName']} // this should match
-              onChangeText={(text) => this.onChangeText(text, /^[a-zA-Z ]+$/, 'patientName')} // this
+              value={this.state.patientName || ""} // this should match
+              onChangeText={(text) => this.onChangeText(text, /(^$)|^[a-zA-Z ]+$/, 'patientName')} // this
+              error={emptyFields.includes('patientName')}
             />
           )}
         />
@@ -113,8 +143,9 @@ export default class HomeScreen extends React.Component {
           renderInput={() => (
             <FormInput
               placeholder={'Eg. 20:30'}
-              value={this.state['incidentTime']} // this should match
-              onChangeText={(text) => this.onChangeText(text,/([0-9]|0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$/, 'incidentTime')} // this
+              value={this.state.incidentTime || 0} // this should match
+              onChangeText={(text) => this.onChangeText(text,/(^$)|^([0-9]|0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$/, 'incidentTime')} // this
+              error={emptyFields.includes('incidentTime')}
             />
           )}
         />
@@ -123,11 +154,13 @@ export default class HomeScreen extends React.Component {
        <FormTemplate 
            text={`Where did the ${incident} take place?`}
            renderInput={() => (
+             <View style={ emptyFields.includes('hospitalName') && {borderColor:"red", borderWidth:1}}>
             <Picker
-                selectedValue={this.state.language}
+                selectedValue={this.state.hospitalName}
                 style={{ flex:1 }}
-                value= {this.state['hospitalName']}
+                value= {this.state.hospitalName || ""}
                 onValueChange={(itemValue, itemIndex) => this.setState({hospitalName: itemValue})}>
+                <Picker.Item label="Choose Hospital" value="none" />
                 <Picker.Item label="Cottage Medi-Clinic" value="Cottage-Medi-Clinic" />
                 <Picker.Item label="Gobabis State Hospital" value="Gobabis-State-Hospital" />
                 <Picker.Item label="Katutura State Hospital" value="Katutura-State-Hospital" />
@@ -137,6 +170,7 @@ export default class HomeScreen extends React.Component {
                 <Picker.Item label="Windhoek Central Hospital" value="Windhoek-Central-Hospital" />
                 <Picker.Item label="Keetmanshoop State Hospital" value="Keetmanshoop-State-Hospital" />
             </Picker>
+            </View>
           )}
         /> 
 
@@ -146,12 +180,13 @@ export default class HomeScreen extends React.Component {
           renderInput={() => (
             <FormInput
               placeholder={'Eg. 050412453'}
-              value={this.state['patientSSN']} // This should match
-              onChangeText={(text) => this.onChangeText(text, /^[1234567890+]+$/, 'patientSSN')} 
+              value={this.state.patientSSN || ""} // This should match
+              onChangeText={(text) => this.onChangeText(text, /(^$)|^[1234567890+A-Za-z]+$/, 'patientSSN')}
+              error={emptyFields.includes('patientSSN')}
             />
           )}
         />
-      <TouchableOpacity style={styles.button} onPress={this.validateForm}>
+      <TouchableOpacity style={styles.button}  onPress={() =>  this.readyButtonClick()} >
         <Text style={styles.buttonText}>Ready</Text>
       </TouchableOpacity>
 
