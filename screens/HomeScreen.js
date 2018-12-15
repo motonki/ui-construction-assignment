@@ -103,6 +103,19 @@ export default class HomeScreen extends React.Component {
           )}
         />
 
+
+        <FormTemplate
+          text={'What is your home address?'}
+          renderInput={() => (
+            <FormInput
+              placeholder={'Eg. Balai St 23 3D, Windhoek 034420 Namibia'}
+              value={this.state.address || ""} // this should match
+              onChangeText={(text) => this.onChangeText(text, /(^$)|^[1234567890+A-Za-z]+$/, 'address')} // this
+              error={emptyFields.includes('address')}
+            />
+          )}
+        />
+
         <FormTemplate
           text={"Are you reporting a birth or a death of a person?"}
           renderInput={() => (
@@ -174,6 +187,18 @@ export default class HomeScreen extends React.Component {
           )}
         /> 
 
+                <FormTemplate
+          text={`What is the document referrel number from the hospital?`}
+          renderInput={() => (
+            <FormInput
+              placeholder={'Eg. 23459875'}
+              value={this.state.hospitalRef || ""} // This should match
+              onChangeText={(text) => this.onChangeText(text, /(^$)|^[1234567890+A-Za-z]+$/, 'hospitalRef')}
+              error={emptyFields.includes('hospitalRef')}
+            />
+          )}
+        />
+        
 
         <FormTemplate
           text={`What is the Social Security Number (SSN) of ${concernedPerson}?`}
@@ -186,6 +211,8 @@ export default class HomeScreen extends React.Component {
             />
           )}
         />
+
+
       <TouchableOpacity style={styles.button}  onPress={() =>  this.readyButtonClick()} >
         <Text style={styles.buttonText}>Ready</Text>
       </TouchableOpacity>

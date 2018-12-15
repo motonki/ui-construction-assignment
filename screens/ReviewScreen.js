@@ -12,6 +12,10 @@ const fields = [
     label: "Your mobile number"
   },
   {
+    name: "address",
+    label: "Your address"
+  },
+  {
     name: "patientName",
     label: "Name of person concerned"
   },
@@ -26,6 +30,10 @@ const fields = [
   {
     name: "hospitalName",
     label: "Name of hospital"
+  },
+  {
+    name: "hospitalRef",
+    label: "Hospital referral number"
   },
   {
     name: "patientSSN",
