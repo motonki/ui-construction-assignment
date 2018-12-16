@@ -30,6 +30,8 @@ HomeStack.navigationOptions = {
 
 const ListingStack = createStackNavigator({
   Listing: ListingScreen,
+    Home: HomeScreen,
+  Review: ReviewScreen
 });
 
 ListingStack.navigationOptions = {

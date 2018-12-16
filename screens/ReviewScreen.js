@@ -56,7 +56,14 @@ export default class ReviewScreen extends React.Component {
   static navigationOptions = {
       title: 'Review',
   };
-  
+
+
+  onEdit = (data) => {
+        console.log("EDIT-----")
+        this.props.navigation.navigate('Home', data)
+  }
+
+
   onSubmit = async(data) => {
     // Generate unique id to identify record later
     data['id'] = 'id-' + Math.random().toString(36).substr(2, 16)
@@ -77,11 +84,11 @@ export default class ReviewScreen extends React.Component {
       await AsyncStorage.setItem("@RECORDS", JSON.stringify(storedData))
 
 
-const resetAction = StackActions.reset({
-  index: 0,
-  actions: [NavigationActions.navigate({ routeName: 'Listing' })],
-});
-this.props.navigation.dispatch(resetAction);
+      const resetAction = StackActions.reset({
+        index: 0,
+        actions: [NavigationActions.navigate({ routeName: 'Listing' })],
+      });
+      this.props.navigation.dispatch(resetAction);
 
       //this.props.navigation.navigate('Listing')
       alert("Form is successfully sent to the government!! Check the status page to see if the report has been accepted. This process will take a week. You will also be notified on a document sent to you by post to your address");
@@ -97,7 +104,7 @@ this.props.navigation.dispatch(resetAction);
 
   render() {
     const data =  this.props.navigation.state.params || {}
-    console.log("params----------", data)
+    console.log("params---------", data)
     return (
         <ScrollView style={styles.container}>
             {
@@ -108,6 +115,10 @@ this.props.navigation.dispatch(resetAction);
 
             <TouchableOpacity style={styles.button} onPress={() => this.onSubmit(data)}>
               <Text style={styles.buttonText}>Submit</Text>
+            </TouchableOpacity>
+
+              <TouchableOpacity style={styles.button} onPress={() => this.onEdit(data)}>
+              <Text style={styles.buttonText}>Edit</Text>
             </TouchableOpacity>
         </ScrollView>
     );

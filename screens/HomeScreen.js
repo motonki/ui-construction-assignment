@@ -27,6 +27,15 @@ export default class HomeScreen extends React.Component {
     emptyFields: []
   }
 
+
+  componentWillReceiveProps(nextProps) {  
+   
+    const be = nextProps.navigation.state.params ;
+    this.state = be
+    console.log("MOUNT-------" + this.state)
+  }
+
+
   onChangeText = (text, validationRegex, id) => {
     if (!text.match(validationRegex)) return
 
@@ -41,7 +50,9 @@ export default class HomeScreen extends React.Component {
 
   readyButtonClick = () => {
      const ret = this.validateForm()      
-     if(ret)  this.props.navigation.navigate('Review', this.state)
+     const tmp = this.state
+     this.state = []
+     if(ret)  this.props.navigation.navigate('Review', tmp)
   }
 
 
