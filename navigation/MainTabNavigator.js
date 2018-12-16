@@ -12,7 +12,8 @@ import ReviewScreen from '../screens/ReviewScreen';
 
 const HomeStack = createStackNavigator({
   Home: HomeScreen,
-  Review: ReviewScreen
+  Review: ReviewScreen,
+  Listing: ListingScreen
 });
 
  

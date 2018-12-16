@@ -1,5 +1,6 @@
 import React from 'react';
 import { Text, View, ScrollView, StyleSheet, TouchableOpacity, AsyncStorage } from 'react-native';
+import { StackActions, NavigationActions } from 'react-navigation';
 
 // Fields names and labels to be shown in Review page
 const fields = [
@@ -72,14 +73,24 @@ export default class ReviewScreen extends React.Component {
       // Push new data obj to stored data array
       storedData.push(data)
 
-      // Set new list to local storage. Array of objects needs to be stringified
+      // Set new list to local storage. Arrajjy of objects needs to be stringified
       await AsyncStorage.setItem("@RECORDS", JSON.stringify(storedData))
-      this.props.navigation.navigate('Listing')
+
+
+const resetAction = StackActions.reset({
+  index: 0,
+  actions: [NavigationActions.navigate({ routeName: 'Listing' })],
+});
+this.props.navigation.dispatch(resetAction);
+
+      //this.props.navigation.navigate('Listing')
       alert("Form is successfully sent to the government!! Check the status page to see if the report has been accepted. This process will take a week. You will also be notified on a document sent to you by post to your address");
       
 
    } catch (error) {
      // Error retrieving data
+
+     console.log("go to status error----"+error)
    }
     
   }
