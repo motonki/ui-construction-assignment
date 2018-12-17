@@ -142,12 +142,10 @@ const styles = StyleSheet.create({
     flex: 1,
     fontWeight: "600",
     fontSize: 14,
-    fontFamily: 'Avenir'
   },
   rowText: {
     flex: 1,
     fontSize: 16,
-    fontFamily: 'Avenir',
     textAlign: 'right'
   },
   button: {
@@ -163,7 +161,6 @@ const styles = StyleSheet.create({
   buttonText: {
     textAlign: 'center',
     color: 'white',
-    fontFamily: 'Avenir',
     fontSize: 16
   }
 })

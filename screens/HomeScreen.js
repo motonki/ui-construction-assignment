@@ -252,7 +252,6 @@ const styles = StyleSheet.create({
   buttonText: {
     textAlign: 'center',
     color: 'white',
-    fontFamily: 'Avenir',
     fontSize: 18
   }
 });

@@ -1,5 +1,5 @@
 import React from 'react';
-import { ScrollView, StyleSheet, FlatList } from 'react-native';
+import { ScrollView, StyleSheet, AsyncStorage } from 'react-native';
 import AnnouncementPreview from '../components/AnnouncementPreview.js'
 import data from '../data/data.json';
 
@@ -29,10 +29,22 @@ export default class ListingScreen extends React.Component {
       );
   }
 
+  onScreenLoad = async() => {
+      try {
+        return await AsyncStorage.getItem("@RECORDS")
+      } catch (error) {
+        // Error retrieving data
+   
+        console.log("go to status error----"+error)
+      }
+  }
+
   render() {
+    storedData = this.onScreenLoad();
+    console.log(storedData);
     return (
-        <ScrollView style = {styles.container}>
-            {this.listAnnouncements(data.announcements)}
+        <ScrollView style = {styles.wrapper}>
+            {this.listAnnouncements(storedData)}
 
         </ScrollView>
     );
@@ -40,10 +52,12 @@ export default class ListingScreen extends React.Component {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    paddingTop: 20,
-    paddingVertical: 20,
-    backgroundColor: '#fff',
-  },
-});
+    wrapper: {
+      marginHorizontal: 20,
+      marginTop: 20
+    },
+    text:{
+      fontSize: 16,
+      marginBottom: 15
+    }
+  })

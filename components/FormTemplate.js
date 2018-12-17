@@ -16,7 +16,6 @@ const styles = StyleSheet.create({
   },
   text:{
     fontSize: 16,
-    fontFamily: "Avenir",
     marginBottom: 15
   }
 })
