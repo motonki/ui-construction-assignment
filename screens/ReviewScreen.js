@@ -86,9 +86,13 @@ export default class ReviewScreen extends React.Component {
 
       const resetAction = StackActions.reset({
         index: 0,
-        actions: [NavigationActions.navigate({ routeName: 'Listing' })],
+        key: null,
+        actions: [
+            NavigationActions.navigate({ routeName: 'Home' }),
+        ],
       });
       this.props.navigation.dispatch(resetAction);
+      this.props.navigation.navigate('Listing');
 
       //this.props.navigation.navigate('Listing')
       alert("Form is successfully sent to the government!! Check the status page to see if the report has been accepted. This process will take a week. You will also be notified on a document sent to you by post to your address");

@@ -1,14 +1,11 @@
 import React from 'react';
 import { 
   Picker,
-  Image,
   ScrollView,
   StyleSheet,
   Text,
   TouchableOpacity,
-  DatePickerAndroid,
   View,
-  TextInput,
   KeyboardAvoidingView
 } from 'react-native';
 
@@ -28,11 +25,10 @@ export default class HomeScreen extends React.Component {
   }
 
 
-  componentWillReceiveProps(nextProps) {  
-   
-    const be = nextProps.navigation.state.params ;
-    this.state = be
-    console.log("MOUNT-------" + this.state)
+  componentDidMount() {
+    const be = this.props.navigation.state.params ;
+    if (be) this.state = be;
+    console.log("MOUNT-------", this.state)
   }
 
 
@@ -121,7 +117,7 @@ export default class HomeScreen extends React.Component {
             <FormInput
               placeholder={'Eg. Balai St 23 3D, Windhoek 034420 Namibia'}
               value={this.state.address || ""} // this should match
-              onChangeText={(text) => this.onChangeText(text, /(^$)|^[1234567890+A-Za-z]+$/, 'address')} // this
+              onChangeText={(text) => this.onChangeText(text, /(^$)|^[1234567890+A-Za-z ]+$/, 'address')} // this
               error={emptyFields.includes('address')}
             />
           )}
@@ -167,8 +163,8 @@ export default class HomeScreen extends React.Component {
           renderInput={() => (
             <FormInput
               placeholder={'Eg. 20:30'}
-              value={this.state.incidentTime || 0} // this should match
-              onChangeText={(text) => this.onChangeText(text,/(^$)|^([0-9]|0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$/, 'incidentTime')} // this
+              value={this.state.incidentTime || "00:00"} // this should match
+              onChangeText={(text) => this.onChangeText(text,/(^$)|^(?:\d|[01]\d|2[0-3]):([0-5]|([0-5][0-9]))/, 'incidentTime')} // this
               error={emptyFields.includes('incidentTime')}
             />
           )}

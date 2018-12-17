@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
-import { View, Text, TextInput, StyleSheet } from 'react-native'
+import { TextInput, StyleSheet } from 'react-native'
 
 class FormInput extends Component {
   render() {
-    const { placeholder, error, ...props } = this.props
+    const { error, placeholder, ...props } = this.props
 
     return (
         <TextInput
