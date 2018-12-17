@@ -26,3 +26,6 @@ npm start
 - Install Expo App for Android or iPhone
 - Make sure your computer is in same network as your phone (doesn't currently work in public networks like Aalto Open or eduroam)
 - Scan the QR code to open the App on your phone
+
+# Division of work and individual parts
+ Juho did the screen listing screen that at the moment shows placeholder texts because issues with the async storage and retrieving data

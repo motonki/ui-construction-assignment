@@ -1,5 +1,5 @@
 import React from 'react';
-import { ScrollView, StyleSheet, AsyncStorage } from 'react-native';
+import { ScrollView, StyleSheet, AsyncStorage, Text } from 'react-native';
 import AnnouncementPreview from '../components/AnnouncementPreview.js'
 import data from '../data/data.json';
 
@@ -29,9 +29,11 @@ export default class ListingScreen extends React.Component {
       );
   }
 
-  onScreenLoad = async() => {
+  async onScreenLoad()  {
       try {
-        return await AsyncStorage.getItem("@RECORDS")
+        const keys = await AsyncStorage.getAllKeys();
+        const items = await AsyncStorage.multiGet(keys);
+        return JSON.parse(items[0][1]);
       } catch (error) {
         // Error retrieving data
    
@@ -40,11 +42,12 @@ export default class ListingScreen extends React.Component {
   }
 
   render() {
-    storedData = this.onScreenLoad();
-    console.log(storedData);
+    let inputs = this.onScreenLoad().then();
+    console.log(inputs);
+    let temp = ["Foo", "bar"];
     return (
         <ScrollView style = {styles.wrapper}>
-            {this.listAnnouncements(storedData)}
+           <Text> {temp} </Text>
 
         </ScrollView>
     );
