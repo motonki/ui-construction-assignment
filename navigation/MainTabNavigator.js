@@ -4,16 +4,13 @@ import { createStackNavigator, createBottomTabNavigator } from 'react-navigation
 
 import TabBarIcon from '../components/TabBarIcon';
 import HomeScreen from '../screens/HomeScreen';
-import LinksScreen from '../screens/LinksScreen';
-import SettingsScreen from '../screens/SettingsScreen';
 import ListingScreen from '../screens/ListingScreen';
 import ReviewScreen from '../screens/ReviewScreen';
 
 
 const HomeStack = createStackNavigator({
   Home: HomeScreen,
-  Review: ReviewScreen,
-  Listing: ListingScreen
+  Review: ReviewScreen
 });
 
  
@@ -30,7 +27,7 @@ HomeStack.navigationOptions = {
 
 const ListingStack = createStackNavigator({
   Listing: ListingScreen,
-    Home: HomeScreen,
+  Home: HomeScreen,
   Review: ReviewScreen
 });
 
@@ -40,20 +37,6 @@ ListingStack.navigationOptions = {
     <TabBarIcon
       focused={focused}
       name={'eye'}
-    />
-  ),
-};
-
-const SettingsStack = createStackNavigator({
-  Settings: SettingsScreen,
-});
-
-SettingsStack.navigationOptions = {
-  tabBarLabel: 'Settings',
-  tabBarIcon: ({ focused }) => (
-    <TabBarIcon
-      focused={focused}
-      name={Platform.OS === 'ios' ? 'ios-options' : 'md-options'}
     />
   ),
 };
